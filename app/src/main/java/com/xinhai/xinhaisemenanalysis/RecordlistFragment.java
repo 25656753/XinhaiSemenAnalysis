@@ -1,6 +1,7 @@
 package com.xinhai.xinhaisemenanalysis;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -101,7 +102,6 @@ public class RecordlistFragment extends Fragment {
         Collections.reverse(flielist);
 
     }
-
 
     private void  getPlayTime(String mUri,recordfile f)
     {

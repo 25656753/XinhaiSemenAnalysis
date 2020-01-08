@@ -3,98 +3,123 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:rowCount="6"
-    android:columnCount="2">
-<com.facebook.drawee.view.SimpleDraweeView
-    android:id="@+id/imageview"
-    android:layout_gravity="center"
-    android:layout_width="160dp"
-    android:layout_height="120dp"
-   android:layout_margin="10dp"
-    android:layout_column="0"
-    android:layout_rowSpan="6"
-    android:src="@drawable/ib_forward"
-    />
-    <TextView android:layout_width="wrap_content"
+    android:columnCount="2"
+    android:rowCount="6">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imageview"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_column="0"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_rowSpan="6"
+        android:src="@drawable/ib_forward" />
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_row="0"
         android:layout_column="1"
         android:layout_marginTop="8dp"
-        android:textColor="@color/blue_like"
-        android:text="文件名称:" />
-<TextView
-    android:id="@+id/filename"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textColor="@color/blue_like"
-    android:layout_row="1"
-    android:layout_column="1" />
+        android:layout_row="0"
+        android:text="文件名称:"
+        android:textColor="@color/blue_like" />
+
+    <TextView
+        android:id="@+id/filename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_column="1"
+        android:layout_row="1"
+        android:textColor="@color/blue_like" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_row="2"
         android:layout_column="1"
-        >
+        android:layout_row="2"
+        android:orientation="horizontal">
+
         <TextView
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue_like"
-            android:text="时长:"/>
+            android:text="时长:"
+            android:textColor="@color/blue_like" />
+
         <TextView
             android:id="@+id/retimelong"
             android:layout_width="wrap_content"
-            android:textColor="@color/blue_like"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_like" />
     </LinearLayout>
-
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_column="1"
         android:layout_row="3"
-        android:layout_column="1">
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue_like"
-            android:text="宽度:"/>
+            android:text="宽度:"
+            android:textColor="@color/blue_like" />
+
         <TextView
             android:id="@+id/tvwidth"
             android:layout_width="wrap_content"
-            android:textColor="@color/blue_like"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_like" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_column="1"
         android:layout_row="4"
-        android:layout_column="1">
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/blue_like"
-            android:text="高度:"/>
+            android:text="高度:"
+            android:textColor="@color/blue_like" />
+
         <TextView
             android:id="@+id/tvheight"
-            android:textColor="@color/blue_like"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_like" />
     </LinearLayout>
-    <Button
-        android:id="@+id/btndelfile"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_row="5"
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
         android:layout_column="1"
-        android:textColor="@color/white"
-        android:background="@color/bg_socket_power"
-        android:text="@string/delfile"
-        />
+        android:layout_row="5"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btndelfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:layout_marginLeft="70dp"
+            android:tooltipText="删除文件"
+            android:src="@drawable/delfile" />
+
+        <ImageButton
+            android:id="@+id/btnshare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:tooltipText="分享..."
+            android:background="@color/transparent"
+            android:src="@drawable/shareicon" />
+    </LinearLayout>
+
 </GridLayout>

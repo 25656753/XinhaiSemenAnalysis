@@ -1,0 +1,6 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <paths>
+        <external-files-path path="/com.xinhai.xinhaisemenanalysis/videorecord/" name="externalvideorecord"/>
+        <external-files-path path="/com.xinhai.xinhaisemenanalysis/snapshot/" name="externalshot"/>
+    </paths>
+</resources>

@@ -3,13 +3,18 @@ package com.xinhai.xinhaisemenanalysis;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +22,7 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.xinhai.xinhaisemenanalysis.devices.monitor.ActivityGuideDeviceCamera;
+import com.xinhai.xinhaisemenanalysis.utils.IntentUtils;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -35,7 +41,7 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TextView tvtimelong;
         TextView tvwidth;
         TextView tvheight;
-        Button btndelfile;
+        ImageButton btndelfile,btnshare;
         View view;
 
         public ViewHolder(View itemView) {
@@ -47,14 +53,59 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tvwidth = itemView.findViewById(R.id.tvwidth);
             tvheight = itemView.findViewById(R.id.tvheight);
             btndelfile=itemView.findViewById(R.id.btndelfile);
+            btnshare=itemView.findViewById(R.id.btnshare);
         }
     }
+
 
     public LocfilelistAdapter(Context context, List<RecordlistFragment.recordfile> list) {
         this.context = context;
         this.list = list;
     }
 
+    /**
+     * 分享图片
+
+     */
+    public    void shareImage(RecordlistFragment.recordfile recordfile ) {
+        File file= null;
+        int type=0;
+        if ("0".equals(recordfile.getMediatype())) {
+            file = new File(recordbaseurl + recordfile.getName());
+            type = 1;
+        } else {
+            file = new File(picbaseurl + recordfile.getName());
+            type=0;
+        }
+        if (!file.exists()) {
+            return;
+        }
+        Uri  imgUri;
+       ;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            // UpdateConfig.FILE_PROVIDER_AUTH 即是在清单文件中配置的authorities
+            imgUri = FileProvider.getUriForFile(context, "com.xinhai.xinhaisemenanalysis.FileProvider", file);
+            // 给目标应用一个临时授权
+
+        } else {
+            imgUri = Uri.fromFile(file);
+        }
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        //其中imgUri为图片的标识符
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
+        if (type==0) {
+            shareIntent.setType("image/*");
+        } else
+        {
+            shareIntent.setType("video/*");
+        }
+        //切记需要使用Intent.createChooser，否则会出现别样的应用选择框，您可以试试
+        shareIntent = Intent.createChooser(shareIntent, "请选择需分享的应用");
+
+       context.startActivity(shareIntent);
+    }
 
     @NonNull
     @Override
@@ -128,7 +179,31 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 builder.show();
             }
         });
+
+
+        ((ViewHolder)  holder).btnshare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                File file= null;
+
+                if ("0".equals(fn.getMediatype())) {
+                    file = new File(recordbaseurl + fn.getName());
+                    IntentUtils.shareVideo(context,file,"请选择需分享视频的应用","com.xinhai.xinhaisemenanalysis.FileProvider");
+                } else {
+                    file = new File(picbaseurl + fn.getName());
+                    IntentUtils.shareImage(context,file,"请选择需分享图片的应用","com.xinhai.xinhaisemenanalysis.FileProvider");
+                }
+
+            }
+        });
+
+
     }
+
+
+
+
 
     @Override
     public int getItemCount() {

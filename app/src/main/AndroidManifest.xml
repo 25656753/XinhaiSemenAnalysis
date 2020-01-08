@@ -39,7 +39,15 @@
         android:roundIcon="@mipmap/companyicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.xinhai.xinhaisemenanalysis.FileProvider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_files" />
+        </provider>
         <activity
             android:name=".ActivityStartup"
             android:screenOrientation="portrait"
