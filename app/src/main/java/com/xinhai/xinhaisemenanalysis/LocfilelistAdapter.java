@@ -10,12 +10,9 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,23 +22,23 @@ import com.xinhai.xinhaisemenanalysis.devices.monitor.ActivityGuideDeviceCamera;
 import com.xinhai.xinhaisemenanalysis.utils.IntentUtils;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.List;
 
-public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<RecordlistFragment.recordfile> list;
     private Context context;
-    private  final  String recordbaseurl= Environment.getExternalStorageDirectory()+
+    private final String recordbaseurl = Environment.getExternalStorageDirectory() +
             "/com.xinhai.xinhaisemenanalysis/videorecord/";
-    private  final  String picbaseurl= Environment.getExternalStorageDirectory()+
+    private final String picbaseurl = Environment.getExternalStorageDirectory() +
             "/com.xinhai.xinhaisemenanalysis/snapshot/";
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         SimpleDraweeView imageView;
         TextView tvfilename;
         TextView tvtimelong;
         TextView tvwidth;
         TextView tvheight;
-        ImageButton btndelfile,btnshare;
+        ImageButton btndelfile, btnshare;
         View view;
 
         public ViewHolder(View itemView) {
@@ -52,8 +49,8 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tvtimelong = itemView.findViewById(R.id.retimelong);
             tvwidth = itemView.findViewById(R.id.tvwidth);
             tvheight = itemView.findViewById(R.id.tvheight);
-            btndelfile=itemView.findViewById(R.id.btndelfile);
-            btnshare=itemView.findViewById(R.id.btnshare);
+            btndelfile = itemView.findViewById(R.id.btndelfile);
+            btnshare = itemView.findViewById(R.id.btnshare);
         }
     }
 
@@ -65,23 +62,22 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     /**
      * 分享图片
-
      */
-    public    void shareImage(RecordlistFragment.recordfile recordfile ) {
-        File file= null;
-        int type=0;
+    public void shareImage(RecordlistFragment.recordfile recordfile) {
+        File file = null;
+        int type = 0;
         if ("0".equals(recordfile.getMediatype())) {
             file = new File(recordbaseurl + recordfile.getName());
             type = 1;
         } else {
             file = new File(picbaseurl + recordfile.getName());
-            type=0;
+            type = 0;
         }
         if (!file.exists()) {
             return;
         }
-        Uri  imgUri;
-       ;
+        Uri imgUri;
+        ;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             // UpdateConfig.FILE_PROVIDER_AUTH 即是在清单文件中配置的authorities
             imgUri = FileProvider.getUriForFile(context, "com.xinhai.xinhaisemenanalysis.FileProvider", file);
@@ -95,16 +91,15 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         shareIntent.setAction(Intent.ACTION_SEND);
         //其中imgUri为图片的标识符
         shareIntent.putExtra(Intent.EXTRA_STREAM, imgUri);
-        if (type==0) {
+        if (type == 0) {
             shareIntent.setType("image/*");
-        } else
-        {
+        } else {
             shareIntent.setType("video/*");
         }
         //切记需要使用Intent.createChooser，否则会出现别样的应用选择框，您可以试试
         shareIntent = Intent.createChooser(shareIntent, "请选择需分享的应用");
 
-       context.startActivity(shareIntent);
+        context.startActivity(shareIntent);
     }
 
     @NonNull
@@ -121,9 +116,9 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 if ("0".equals(recordfile.getMediatype())) {
                     ((ActivityGuideDeviceCamera) context).playlocVideofile(recordfile.getName());
                 } else {
-                     Toast.makeText(v.getContext(), "图片"+recordfile.getName()+"不支持播放", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), "图片" + recordfile.getName() + "不支持播放", Toast.LENGTH_SHORT).show();
                 }
-                }
+            }
         });
 
         return holder;
@@ -132,19 +127,18 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         //控件设置值
-        final RecordlistFragment.recordfile  fn = list.get(position);
-        ((ViewHolder)  holder).tvfilename.setText(fn.getName());
-        ((ViewHolder)  holder).tvwidth.setText(fn.getWidth());
-        ((ViewHolder)  holder).tvheight.setText(fn.getHeight());
-       if ("0".equals(fn.getMediatype())) {
-           ((ViewHolder) holder).imageView.setImageURI(Uri.parse("file://" + recordbaseurl + fn.getName()));
-           ((ViewHolder)  holder).tvtimelong.setText(fn.getTimelong()+"  (视频)");
-       } else
-       {
-            ((ViewHolder) holder).imageView.setImageURI(Uri.parse("file://" + picbaseurl +fn.getName()));
-            ((ViewHolder)  holder).tvtimelong.setText(fn.getTimelong()+"  (图片)");
-       }
-         ((ViewHolder)  holder).btndelfile.setOnClickListener(new View.OnClickListener() {
+        final RecordlistFragment.recordfile fn = list.get(position);
+        ((ViewHolder) holder).tvfilename.setText(fn.getName());
+        ((ViewHolder) holder).tvwidth.setText(fn.getWidth());
+        ((ViewHolder) holder).tvheight.setText(fn.getHeight());
+        if ("0".equals(fn.getMediatype())) {
+            ((ViewHolder) holder).imageView.setImageURI(Uri.parse("file://" + recordbaseurl + fn.getName()));
+            ((ViewHolder) holder).tvtimelong.setText(fn.getTimelong() + "  (视频)");
+        } else {
+            ((ViewHolder) holder).imageView.setImageURI(Uri.parse("file://" + picbaseurl + fn.getName()));
+            ((ViewHolder) holder).tvtimelong.setText(fn.getTimelong() + "  (图片)");
+        }
+        ((ViewHolder) holder).btndelfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -155,15 +149,16 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        File f= null;
+                        File f = null;
                         if ("0".equals(fn.getMediatype()))
-                         f=new File(recordbaseurl+fn.getName());
+                            f = new File(recordbaseurl + fn.getName());
                         else
-                            f=new File(picbaseurl+fn.getName());
-                        if (f!=null) {
-                         try {
-                             f.delete();
-                         }catch(Exception e){}
+                            f = new File(picbaseurl + fn.getName());
+                        if (f != null) {
+                            try {
+                                f.delete();
+                            } catch (Exception e) {
+                            }
                         }
                         list.remove(fn);
                         notifyDataSetChanged();
@@ -181,28 +176,26 @@ public  class LocfilelistAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         });
 
 
-        ((ViewHolder)  holder).btnshare.setOnClickListener(new View.OnClickListener() {
+        ((ViewHolder) holder).btnshare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                File file= null;
-
-                if ("0".equals(fn.getMediatype())) {
-                    file = new File(recordbaseurl + fn.getName());
-                    IntentUtils.shareVideo(context,file,"请选择需分享视频的应用","com.xinhai.xinhaisemenanalysis.FileProvider");
-                } else {
-                    file = new File(picbaseurl + fn.getName());
-                    IntentUtils.shareImage(context,file,"请选择需分享图片的应用","com.xinhai.xinhaisemenanalysis.FileProvider");
+                File file = null;
+                try {
+                    if ("0".equals(fn.getMediatype())) {
+                        file = new File(recordbaseurl + fn.getName());
+                        IntentUtils.shareVideo(context, file, "请选择需分享视频的应用", context.getPackageName() + ".FileProvider");
+                    } else {
+                        file = new File(picbaseurl + fn.getName());
+                        IntentUtils.shareImage(context, file, "请选择需分享图片的应用", context.getPackageName() + ".FileProvider");
+                    }
+                } catch (Exception e) {
                 }
-
             }
         });
 
 
     }
-
-
-
 
 
     @Override
