@@ -11,6 +11,9 @@ import android.support.v4.content.FileProvider;
 
 import java.io.File;
 
+/**
+ * 分享类
+ */
 public class IntentUtils {
     public static final String TYPE_VIDEO = "video/*";
     public static final String TYPE_IMAGE = "image/*";
