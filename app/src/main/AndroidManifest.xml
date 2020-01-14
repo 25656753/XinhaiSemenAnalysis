@@ -73,12 +73,13 @@
         </activity>
         <activity android:name=".ActivityGuideDeviceListAP"
             android:screenOrientation="portrait">
-
+        </activity>
+        <activity android:name=".devices.settings.ActivityGuideDeviceSystemInfo"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".devices.monitor.ActivityGuideDeviceCamera"
-            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize"
-            >
+            android:configChanges="orientation|keyboardHidden|screenLayout|keyboard|screenSize">
        <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>

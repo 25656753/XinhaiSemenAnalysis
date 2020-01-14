@@ -6,6 +6,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Message;
@@ -204,12 +205,13 @@ public class ActivityGuideDeviceSystemInfo extends ActivityDemo
 				// 硬件版本号
 				mTextDevHWVer.setText(systemInfo.getHardwareVersion());
 				
-				// 软件版本号
-				mTextDevSWVer.setText(systemInfo.getSoftwareVersion());
-				
+				// 软件版
+				// 本号
+				//mTextDevSWVer.setText(systemInfo.getSoftwareVersion());
+				mTextDevSWVer.setText(" V1.0.0.0");
 				// 发布时间
-				mTextDevPubDate.setText(systemInfo.getBuildTime());
-				
+				//mTextDevPubDate.setText(systemInfo.getBuildTime());
+				mTextDevPubDate.setText("2020-01-10 15:32");
 				// 设备运行时间
 				mTextDevRunTime.setText(systemInfo.getDeviceRunTimeWithFormat());
 				
@@ -217,8 +219,10 @@ public class ActivityGuideDeviceSystemInfo extends ActivityDemo
 				mTextDevNatCode.setText(getConnectTypeStringId(mFunDevice.getNetConnectType()));
 				
 				// 生成二维码
-				Bitmap qrCodeBmp = UIFactory.createCode(
-						systemInfo.getSerialNo(), 600, 0xff202020);
+				/*Bitmap qrCodeBmp = UIFactory.createCode(
+						systemInfo.getSerialNo(), 600, 0xff202020);*/
+
+				Bitmap qrCodeBmp = BitmapFactory.decodeResource(getResources(),R.drawable.logo);
 				if ( null != qrCodeBmp ) {
 					if ( null != mQrCodeBmp ) {
 						mQrCodeBmp.recycle();

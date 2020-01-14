@@ -74,8 +74,8 @@ public class ActivityGuideDeviceSetup extends ActivityGuide {
 				new DemoModule(-1, R.string.device_setup_jsonanddevcmd, -1, ActivityGuideDeviceSetupJson.class));
 		*/
 		// 关于设备/设备信息
-	/*	mGuideModules.add(new DemoModule(-1, R.string.device_system_info, R.string.device_setup_hint_about_dev_alarm,
-				ActivityGuideDeviceSystemInfo.class));*/
+		mGuideModules.add(new DemoModule(-1, R.string.device_system_info, R.string.device_setup_hint_about_dev_alarm,
+				ActivityGuideDeviceSystemInfo.class));
 
 		// 智联设备
 		/*mGuideModules.add(new DemoModule(-1, R.string.device_smart_device, -1,
